@@ -1,0 +1,138 @@
+// Rekening.java
+
+package com.tabungan;
+
+public class Rekening {
+    private double saldo=1500000;
+    private String norek;
+
+
+    public void setRekening(String rekening){
+        norek = rekening;
+    }
+    public String getRekening(){
+        return norek;
+    }
+    public double debet(double jumlah){
+        saldo += jumlah;
+        return saldo;
+    }
+    public double kredit(double jumlah){
+        saldo -= jumlah;
+        return saldo;
+    }
+    public double ceksaldo(){
+        return saldo;
+    }
+}
+
+
+// Orang.java
+
+package com.tabungan;
+
+public class Orang {
+    private String namaOrang;
+    private String alamatOrang;
+    private String noKTPorang;
+
+    public void setNamaOrang(String namaOrang){
+        this.namaOrang = namaOrang;
+    }
+    public void setAlamatOrang(String alamatOrang){
+        this.alamatOrang = alamatOrang;
+    }
+    public void setNoKTPOrang(String noKTPorang){
+        this.noKTPorang = noKTPorang;
+    }
+    public String getNamaOrang(){
+        return namaOrang;
+    }
+    public String getAlamatOrang(){
+        return alamatOrang;
+    }
+    public String getNoKTPOrang(){
+        return noKTPorang;
+    }
+}
+
+
+// Pelajar.java
+
+package com.tabungan;
+
+public class Pelajar extends Orang {
+    public String NIM;
+
+    public void setNIM(String nomor){
+        this.NIM = nomor;
+    }
+
+    public String getNIM(){
+        return NIM;
+    }
+}
+
+
+// TabunganPelajar.java
+
+package com.tabungan;
+
+public class TabunganPelajar {
+    public Rekening Rekeningku;
+    public Orang Nasabah;
+    public Pelajar Nasabah1;
+
+    public void Daftar(Rekening RekeningNasabah, Orang Nasabahbaru){
+        Rekeningku = RekeningNasabah;
+        Nasabah = Nasabahbaru;
+    }
+    public double ceksaldo(){
+        return Rekeningku.ceksaldo();
+    }
+
+    public void TampilData(){
+        System.out.println("Data Nasabah Bank");
+        System.out.println("Nama Nasabah : "+Nasabah.getNamaOrang());
+        System.out.println("Alamat Nasabah : "+Nasabah.getAlamatOrang());
+        System.out.println("No. KTP Nasabah : "+Nasabah.getNoKTPOrang());
+        //System.out.println("NIM : "+Nasabah1.getNIM());
+        System.out.println("Data Tabungan Nasabah");
+        System.out.println("No. Rekening Nasabah : "+Rekeningku.getRekening());
+        System.out.println("Saldo : "+Rekeningku.ceksaldo());
+
+    }
+}
+
+
+// Main.java
+
+package com.tabungan;
+
+public class Main {
+    public static void main(String[] args) {
+        Pelajar Mahasiswa = new Pelajar();
+        Rekening Norek = new Rekening();
+        TabunganPelajar Tabungan = new TabunganPelajar();
+
+        Mahasiswa.setNamaOrang("Ajay");
+        Mahasiswa.setAlamatOrang("Bandung");
+        Mahasiswa.setNoKTPOrang("11");
+
+        Norek.setRekening("11111");
+        Norek.ceksaldo();
+        Norek.debet(75000);
+        
+        Tabungan.Daftar(Norek, Mahasiswa);
+        Tabungan.TampilData();
+        System.out.println("\n");
+
+        Norek.kredit(135000);
+        Tabungan.Daftar(Norek, Mahasiswa);
+        Tabungan.TampilData();
+        System.out.println("\n");
+        
+        Tabungan.Rekeningku.kredit(135000);
+        Tabungan.TampilData();
+    }
+}
